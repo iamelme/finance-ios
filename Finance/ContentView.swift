@@ -8,14 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var authModel: AuthModel
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            if(authModel.isAuthenticating) {
+                
+                Text("Loading...")
+                
+            } else {
+                if authModel.userSession != nil && authModel.currentUser != nil {
+                    
+                    HomeView()
+                    
+                } else {
+                    
+                    LoginView()
+                }
+            }
+
         }
-        .padding()
     }
 }
 
